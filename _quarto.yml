@@ -1,0 +1,26 @@
+project:
+  title: "Seguridad"
+  output-dir: docs
+
+
+book:
+  title: "Seguridad"
+  author: "Luis Jaramillo"
+  date: "8/11/2024"
+  chapters:
+
+    - index.qmd
+    - part: "Unidad 1: Nombre de la Unidad"
+      chapters: 
+        - Unidades/unidad1/intro.qmd
+
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
