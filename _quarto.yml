@@ -15,11 +15,11 @@ book:
         
     - part: "Ataques"
       chapters: 
-        - Unidades/unidad8/sql.qmd
+        - Unidades/unidad8/sqlaa.qmd
     
     - part: "Hack The Box"
       chapters: 
-          - Unidades/unidad10/cigarra.qmd
+        - Unidades/unidad10/cigarra.qmd
 
     ##- references.qmd
 
