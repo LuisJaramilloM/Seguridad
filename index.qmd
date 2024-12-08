@@ -1,0 +1,19 @@
+---
+title: "Seguridad Informática"
+Autor: Luis Enrique Jaramillo Montaño
+---
+
+**Bienvenidos al fascinante y desafiante mundo de la seguridad informática**
+
+**Autor: Luis Enrique Jaramillo Montaño**
+
+
+Es un placer presentarles esta guía introductoria, especialmente diseñada para ser una compañera confiable en su viaje hacia la comprensión de los aspectos fundamentales de la ciberseguridad. Hoy en día, el entorno digital no es solo un lugar donde almacenamos información, trabajamos, o nos comunicamos; también es un campo en constante evolución, lleno de amenazas que requieren conocimiento, habilidades y atención.
+
+Esta pequeña guía está pensada para proporcionar una base sólida que les permitirá entender y enfrentar algunos de los ataques informáticos más comunes y actuales. A lo largo de sus páginas, exploraremos métodos de ataque que, aunque frecuentemente utilizados, son cada vez más sofisticados y sutiles. Con una estructura clara y ejemplos prácticos, nuestro objetivo es que puedan identificar estos riesgos y, más importante aún, que desarrollen una mentalidad proactiva y crítica para protegerse a sí mismos, a sus entornos de trabajo, y a sus proyectos personales en el vasto universo digital.
+
+Sabemos que, para algunos, este campo puede parecer intimidante; sin embargo, no subestimen su capacidad para aprender y dominar estos temas. Con dedicación, curiosidad, y un enfoque práctico, estarán listos para comprender mejor el complejo pero fascinante panorama de la ciberseguridad.
+
+Estamos convencidos de que el conocimiento sobre seguridad informática es una herramienta esencial y que todos deberían tener acceso a una comprensión básica de cómo protegerse en el ámbito digital. Esperamos que esta guía sea el comienzo de una nueva etapa en su vida, una etapa donde el conocimiento y la conciencia serán sus mejores defensas frente a los desafíos digitales.
+
+¡Bienvenidos y que disfruten cada capítulo, cada técnica, y cada consejo que hemos recopilado para ustedes en esta guía de seguridad!

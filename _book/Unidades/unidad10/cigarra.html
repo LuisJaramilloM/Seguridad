@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Seguridad – cigarra</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Unidades/unidad8/sql.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Unidades/unidad10/cigarra.html">Hack The Box</a></li><li class="breadcrumb-item"><a href="../../Unidades/unidad10/cigarra.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">cigarra.html</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Seguridad</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Seguridad Informática</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">¿Qué es la ciberseguridad?</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Unidades/unidad1/cap1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Definición de Ciberseguridad.</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Ataques</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Unidades/unidad8/sql.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">sql.html</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Hack The Box</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Unidades/unidad10/cigarra.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">cigarra.html</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<p>CIGARRA HTB</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>SO Windows</p>
+<p>Dificultad Fácil</p>
+<p>IP 10.10.11.35</p>
+<p>La siguiente información trata sobre cómo vulnerar esta máquina de hack the box, para lo cual realizaremos los siguientes pasos</p>
+<p>1) Para la enumeración de puertos me he ayudado de la herramienta nmap con el siguiente comando. sudo nmap -sC -O -Pn 10.10.11.35 Obteniendo a la salida</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Aquí se puede observar el listado de los puertos abiertos entre los cuales se encuentra el 389 perteneciente a ldap</p>
+<p>“El puerto 389 es el puerto predeterminado utilizado por el Protocolo de Acceso Ligero a Directorios (LDAP), en su forma sin cifrar. LDAP es un protocolo estándar para acceder y administrar servicios de directorios distribuidos en una red, como el Active Directory (AD) de Microsoft o servidores LDAP de código abierto como OpenLDAP.”</p>
+<p>2) Revisión del puerto 389 LDAP con la herramienta crackmapexec, para lo cual se utiliza el siguiente comando crackmapexec ldap 10.10.11.35 –users Teniendo como resultado lo siguiente:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Con ese comando se puede observar que existen recursos compartidos en el dominio cicada.htb, pero no se ha podido enumerar dado que es un usuario anónimo, también podemos ver que utiliza el puerto 445 para compartir.</p>
+<p>3) Se coloca usuarios por defecto para aprovechar una mala configuración como admin, como sabes que utiliza el servicio smb cambiamos el ldap.</p>
+<p><img src="imagenes/5.png" class="img-fluid"></p>
+<p>Podemos conocer que existe un usuario admin</p>
+<p>4) Ahora se puede enumerar los recursos compartidos con el comando crackmapexec smb 10.10.11.35 -d ‘cicada.htb’ -u admin -p “” –shares</p>
+<p><img src="imagenes/6.png" class="img-fluid"></p>
+<p>Podemos observar que en dos de esas carpetas HR y IPC$ tenemos acceso de lectura.</p>
+<ol start="5" type="1">
+<li><p>Usando la herramienta smbclient permite conectar con recursos compartidos, y ya que tenemos el usuario admin, con permiso de lectura podemos hacerlo haciendo uso del comando</p>
+<p>smbclient -U ‘admin’ \\10.10.11.35\HR</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/7.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Con el comando get descargamos el archivo y lo abrimos teniendo lo siguiente</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>La contraseña: Cicada$M6Corpb*<span class="citation" data-cites="Lp#nZp">@Lp#nZp</span>!8</p>
+<ol start="6" type="1">
+<li><p>Tenemos la contraseña, pero al probar con el usuario admin no es su contraseña, por ende falta consultar todos los posibles usuarios que puedan conectarse, por lo que hacemos uso nuevamente de crackmapexe haciendo uso de un ataque de fuerza bruta a los RID(Relative Identifier)</p>
+<p>CrackMapExec permite realizar un ataque a los RIDs para enumerar usuarios en un dominio. Aquí está el comando que puedes utilizar: crackmapexec smb 10.10.11.35 -d cicada.htb -u ‘admin’ -p ’’ –rid-brute</p>
+<p>Teniendo como salida algunos usuarios, falta conocer cual usuario corresponde con la password</p></li>
+</ol>
+<p><img src="imagenes/9.png" class="img-fluid"></p>
+<p>En este punto podremos crear un diccionario de usuarios o comprobar uno por uno con la contraseña que se encontró.</p>
+<p>El diccionario quedaría como se muestra en la figura.</p>
+<p><img src="imagenes/10.png" class="img-fluid"></p>
+<ol start="7" type="1">
+<li><p>Con el comando crackmapexec smb 10.10.11.35 -d cicada.htb -u usuarios.txt -p pass.txt buscamos el usuario correspondiente mediante un ataque de diccionario. Dando como resultado el usuario que contiene esa password.</p>
+<p><img src="imagenes/11.png" class="img-fluid"></p></li>
+<li><p>Al estar utilizando el protocolo smb, podemos hacer uso de la herramienta enum4linux que permite obtener información en entornos de AD.</p>
+<p>El comando enum4linux -a -u ‘michael.wrightson’ -p ‘Cicada$M6Corpb*<span class="citation" data-cites="Lp#nZp">@Lp#nZp</span>!8’ 10.10.11.35 realiza una enumeración exhaustiva en un servidor SMB utilizando las credenciales proporcionadas para autenticar y obtener información como usuarios, grupos, recursos compartidos, políticas de contraseñas y detalles del dominio. Esto es útil para recopilar datos sensibles si las credenciales tienen permisos suficientes.</p></li>
+</ol>
+<p><img src="imagenes/12.png" class="img-fluid"></p>
+<p>Con este dato se ha obtenido la contraseña aRt$Lp#7t*VQ!3 para el usuario david.orelious</p>
+<ol start="9" type="1">
+<li><p>Se utiliza crackmapexe nuevamente para ver las carpetas de acceso que tiene cada uno de los usuarios, en la cual se puede observar que el usuario David.orelious, tiene acceso a un carpeta adicional.</p>
+<p><img src="imagenes/13.png" class="img-fluid"></p></li>
+<li><p>Con el comando smbclient -U david.orelious \\10.10.11.35\DEV cuya password es aRt$Lp#7t*VQ!3, se ingresa a la carpeta con el comando get Backup_script.ps1 obtenemos el archivo, y al abrir podemos encontrar lo que se observa en la imagen.</p>
+<p><img src="imagenes/14.png" class="img-fluid"></p></li>
+<li><p>Repetimos el procesimiento ahora para el usuario emily.oscars &nbsp;password: Q!3@Lp#M6b<em>7t</em>Vt</p>
+<p><img src="imagenes/15.png" class="img-fluid"></p></li>
+<li><p>Podemos utilizar otra herramienta llamada evil-winrm, la misma que permite establecer una sesión remota con el siguiente comando. evil-winrm -i 10.10.11.35 -u emily.oscars -p ‘Q!3@Lp#M6b<em>7t</em>Vt’</p></li>
+</ol>
+<p><img src="imagenes/16.png" class="img-fluid"></p>
+<p>Ahora si nos movemos entre las carpetas encontraremos la primera bandera.</p>
+<p><img src="imagenes/17.png" class="img-fluid"></p>
+<ol start="13" type="1">
+<li><p>Para subir los privilegios, debemos conocer cuales son los privilegios que tenemos y lo podemos hacer con el comando Whoami /priv</p>
+<p><img src="imagenes/18.png" class="img-fluid"></p></li>
+</ol>
+<p>Qué hace cada una de ellas.</p>
+<p>• SeBackupPrivilege:<br>
+o Descripción: Permite realizar copias de seguridad de archivos y directorios, incluso si no tienes permisos explícitos sobre ellos. o Estado: Habilitado. Esto significa que puedes acceder a archivos protegidos para leerlos o copiarlos.</p>
+<p>• SeRestorePrivilege: o Descripción: Permite restaurar archivos y directorios, lo que incluye sobrescribir archivos existentes incluso si no tienes permisos de escritura sobre ellos. o Estado: Habilitado. Esto puede permitir modificar archivos críticos del sistema.</p>
+<p>• SeShutdownPrivilege: o Descripción: Permite apagar el sistema. Este privilegio no se usa con frecuencia en explotación directa, pero es útil en operaciones administrativas. o Estado: Habilitado. El usuario puede apagar el sistema de manera controlada.</p>
+<p>• SeChangeNotifyPrivilege: o Descripción: Permite al proceso ignorar permisos al recorrer directorios, también conocido como “bypass traverse checking”. o Estado: Habilitado. Facilita el acceso a directorios protegidos en sistemas con permisos restrictivos.</p>
+<p>• SeIncreaseWorkingSetPrivilege: o Descripción: Permite aumentar el conjunto de trabajo (working set) de un proceso, lo que puede ser útil en operaciones que requieren más memoria. o Estado: Habilitado. Este privilegio es menos relevante para la explotación.</p>
+<p>Conociendo eso, ahora vamos a la carpeta config, con el comando cd C:\config ahora Podemos realizar una copia de los archivos SAM y SYSTEM que son utilizados para almacenar las contraseñas de los usuarios en Windows.</p>
+<p>No se puede utilizar el comando copy, porque no es en tiempo real, así que podemos utilizar el comando reg. reg save hklmC:y reg save hklmC:</p>
+<ol start="14" type="1">
+<li><p>Ahora que se encuentra en una carpeta a la cual tenemos acceso, podemos descargarlo o transferirlo con el comando</p>
+<p><img src="imagenes/19.png" class="img-fluid"></p></li>
+<li><p>Haciendo ahora uso de la herramienta impacket-secretsdump podemos obtener el hash de los usuarios con el comando impacket-secretsdump -sam sam -system system LOCAL</p>
+<p><img src="imagenes/20.png" class="img-fluid"></p></li>
+<li><p>Con esa información ahora se puede crear una sesión remota con evil-WinRM</p></li>
+</ol>
+<p><img src="imagenes/21.png" class="img-fluid"></p>
+<p>Finalmente buscamos la bandera entre los directorios y abrimos como se observa en la siguiente imagen.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenes/22.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Unidades/unidad8/sql.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">sql.html</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

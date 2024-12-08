@@ -1,7 +1,5 @@
 project:
-  title: "Seguridad"
-  output-dir: docs
-
+  type: book
 
 book:
   title: "Seguridad"
@@ -10,14 +8,22 @@ book:
   chapters:
 
     - index.qmd
-    - part: "Unidad 1: Nombre de la Unidad"
+
+    - part: "¿Qué es la ciberseguridad?"
       chapters: 
-        - Unidades/unidad1/intro.qmd
+        - Unidades/unidad1/cap1.qmd
+        
+    - part: "Ataques"
+      chapters: 
+        - Unidades/unidad8/sql.qmd
+    
+    - part: "Hack The Box"
+      chapters: 
+          - Unidades/unidad10/cigarra.qmd
 
-    - summary.qmd
-    - references.qmd
+    ##- references.qmd
 
-bibliography: references.bib
+##bibliography: references.bib
 
 format:
   html:
